@@ -9,6 +9,10 @@ Edited by John Thorp @jnthorp for Windows to automatically open multiple termina
 
 ![Blinks](blinks.png)
 
+## Major alterations from muse-lsl
+
+1. record() takes a start time rather than a duration.
+
 ## Requirements
 
 The code relies on a number of different bluetooth backends for connecting to the muse. We recommend using the `bleak` backend (enabled by default), but you may be interested in [BlueMuse](https://github.com/kowalej/BlueMuse/tree/master/Dist) for a GUI to discover and connect to Muse devices on Windows or [bgapi] if you are on a Mac with a BLED112 dongle. 
@@ -25,28 +29,49 @@ _Note: if you run into any issues, first check out out [Common Issues](#common-i
 
 Install this package
 
-	Download the zip of this folder
+1. Download the zip of this folder
 
-	Place on the Desktop of the testing computer
+2. Place on the Desktop of the testing computer and unzip
 
-	open Windows Command Prompt
+3. open Windows Command Prompt
 
-	cd into the package folder
+4. cd into the package folder
 
-	activate the virtual environment using `.\venv\Scripts\activate.bat`
+5. activate the virtual environment using `.\venv\Scripts\activate.bat`
 
-	once activated, make sure to uninstall any muselsl with `pip uninstall muselsl`
+6. once activated, make sure to uninstall any muselsl with `pip uninstall muselsl`
 
-	then, install the package using `pip install -e .`
+7. then, install the package using `pip install -e .`
+
 
 
 ### Running the pipeline
 
-	Once, you will have to update the subject number and Muse name (from EEGedu) in muse-start.py
+Once, you will have to update the subject number and Muse name (from EEGedu) in muse-start.py
 
-	From then on, you will only need to update the start time in muse-start.py for each session
+From then on, you will only need to update the start time in muse-start.py for each session
 
-	to run the pipeline, open muse-start.py in pycharm, then run `.\venv\Scripts\python.exe .\muse-start.py`
+To run the pipeline, open muse-start.py in pycharm, then run `.\venv\Scripts\python.exe .\muse-start.py`
+
+This will automatically call the presentation script, but for some reason exiting the task script no longer stops the recording. At the moment, it's set up so that if the student goes back to pycharm and interrupts that terminal with Ctrl - C then all the recordings finish properly (note, they're all saving every 5 seconds anyway, so its not the biggest deal).
+
+### How this works
+
+muse-start.py is the main script, which does the following operations:
+
+1. opens a terminal window that runs the psychopy script and therefore the markers stream
+
+2. opens a terminal window that connects to the Muse headset and opens the data stream
+
+3. opens 3 terminal windows, one to record each of the alternative data streams (PPG, ACC, GYRO). At the moment, these csv's all save to the package folder, but only because I ran out of time to get these new terminals to reroute to the Data folder
+
+4. Records EEG data using custom functions start_record() and save_ongoing() saved in record.py
+
+5. Monitors EEG data for whether it's been 5 seconds with no received data or if it has received all 0's.
+
+6. If either of these is true, it sends a Ctrl - C signal to each of the terminals, ending the recordings and closing the stream, then runs 2 and 3 and re-enters the loop for 4 and 5.
+
+All of these things were hard.
 
 ### Setting Up a Stream
 
@@ -82,17 +107,6 @@ If the visualization freezes or is laggy, you can also try the alternate version
 
     $ muselsl view --version 2
 
-To record EEG data into a CSV:
-
-    $ muselsl record --duration 60  
-
-*Note: this command will also save data from any LSL stream containing 'Markers' data, such as from the stimulus presentation scripts in [EEG Notebooks](https://github.com/neurotechx/eeg-notebooks)*
-
-Alternatively, you can record data directly without using LSL through the following command:
-
-    $ muselsl record_direct --duration 60
-
-_Note: direct recording does not allow 'Markers' data to be recorded_
 
 ## Running Experiments
 
