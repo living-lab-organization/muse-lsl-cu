@@ -45,7 +45,6 @@ def record(
 
     print("Started acquiring data.")
     inlet = StreamInlet(streams[0], max_chunklen=chunk_length)
-    # eeg_time_correction = inlet.time_correction()
 
     print("Looking for a Markers stream...")
     marker_streams = resolve_byprop(
@@ -53,6 +52,7 @@ def record(
 
     if marker_streams:
         inlet_marker = StreamInlet(marker_streams[0])
+        marker_time_correction = inlet_marker.time_correction()
     else:
         inlet_marker = False
         print("Can't find Markers stream.")
@@ -89,6 +89,7 @@ def record(
             if inlet_marker:
                 marker, timestamp = inlet_marker.pull_sample(timeout=0.0)
                 if timestamp:
+                    timestamp = timestamp + marker_time_correction
                     markers.append([marker, timestamp])
 
             # Save every 5s
@@ -153,8 +154,8 @@ def _save(
     directory = os.path.dirname(filename)
     if not os.path.exists(directory):
         os.makedirs(directory)
-
     if inlet_marker and markers:
+        print('marker save process')
         n_markers = len(markers[0][0])
         for ii in range(n_markers):
             data['Marker%d' % ii] = 0
@@ -164,6 +165,8 @@ def _save(
             ix = np.argmin(np.abs(marker[1] - timestamps))
             for ii in range(n_markers):
                 data.loc[ix, "Marker%d" % ii] = marker[0][ii]
+    else:
+        data[['Marker0']] = 0
 
     # If file doesn't exist, create with headers
     # If it does exist, just append new rows
@@ -277,6 +280,8 @@ def start_record(
 
     if marker_streams:
         inlet_marker = StreamInlet(marker_streams[0])
+        marker_time_correction = inlet_marker.time_correction()
+
     else:
         inlet_marker = False
         print("Can't find Markers stream.")
@@ -295,7 +300,7 @@ def start_record(
     if t_init > time():
         sleep(t_init - time())
 
-    return [inlet, inlet_marker, chunk_length, ch, ch_names]
+    return [inlet, inlet_marker, marker_time_correction, chunk_length, ch, ch_names]
 
 def save_ongoing(
     res: list,
@@ -307,7 +312,7 @@ def save_ongoing(
     ch_names: List[str],
     last_written_timestamp: Optional[float] = None,
     data_source="EEG",
-    participant="",
+    participant="xxx",
     filename=None
 ):
     if filename is None:
@@ -333,15 +338,22 @@ def save_ongoing(
         os.makedirs(directory)
 
     if inlet_marker and markers:
+        print('marker save process')
         n_markers = len(markers[0][0])
         for ii in range(n_markers):
             data['Marker%d' % ii] = 0
         # process markers:
         for marker in markers:
+            print(marker)
             # find index of markers
             ix = np.argmin(np.abs(marker[1] - timestamps))
             for ii in range(n_markers):
                 data.loc[ix, "Marker%d" % ii] = marker[0][ii]
+        print(data)
+
+    else:
+        data[['Marker0']] = 0
+
 
     # If file doesn't exist, create with headers
     # If it does exist, just append new rows

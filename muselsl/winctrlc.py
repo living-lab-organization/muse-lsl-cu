@@ -10,7 +10,7 @@ class Popen:
   _connection = ''
 
   def _start_ctrl_c_wrapper(self, cmd, cwd):
-    cmd_str = "start cd \"" + cwd + "\" ^&^& .\\venv\\Scripts\\activate.bat ^&^& .\\venv\\Scripts\\python.exe muselsl\\winctrlc.py "+"\""+cmd+"\""+" "+str(self._port)
+    cmd_str = "start cd \"" + cwd + "\" ^&^& .\\venv\\Scripts\\activate.bat ^&^& .\\venv\\Scripts\\python.exe muselsl\\winctrlc.py "+"\""+cmd+"\""+" "+str(self._port) + " ^& exit"
     print(cmd_str)
     subprocess.Popen(cmd_str, shell=True)
 

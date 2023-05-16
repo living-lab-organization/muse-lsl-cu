@@ -25,6 +25,7 @@ from numpy import (sin, cos, tan, log, log10, pi, average,
 from numpy.random import random, randint, normal, shuffle
 import os  # handy system and path functions
 import sys  # to get file system encoding
+import time
 
 #starting hxf 9/8/2021
 import time #for getting local computer time
@@ -214,7 +215,7 @@ while continueRoutine:
         continueRoutine = False
 
         # send the started trigger, adding by hxf 10/12/2021
-        timestamp = local_clock()  # don't use t
+        timestamp = time.time()  # don't use t
         outlet.push_sample([markernames['experiment_started']], timestamp)
             # ending by hxf 10/12/2021
         #ending by hxf 10/12/2021
@@ -231,7 +232,8 @@ while continueRoutine:
     # check for quit (the Esc key)
     if endExpNow or event.getKeys(keyList=["escape"]):
         # send the stopped trigger, adding by hxf 11/19/2021
-        timestamp = local_clock()  # don't use t, Obtain a local system time stamp in seconds.
+        timestamp = time.time()  # don't use t, Obtain a local system time stamp in seconds.
+        print('psychopy pushing 999')
         outlet.push_sample([markernames['experiment_stopped']], timestamp)
         # ending by hxf 11/19/2021
         core.quit()
@@ -306,7 +308,7 @@ for thisRecordingloop in recordingloop:
             # adding by hxf 10/2121/2021
             # for fixation onset
             # sending starting fixation marker
-            timestamp = local_clock()  # don't use t
+            timestamp = time.time()  # don't use t
             outlet.push_sample([markernames['fixation_start']], timestamp)
             # ending by hxf 10/12/2021
         
@@ -332,11 +334,11 @@ for thisRecordingloop in recordingloop:
                 # a response ends the routine
                 #by hxf 9/8/2021, so it's a endless trial, until you press key '1' to finish
                 # continueRoutine = False #will exit this routine
-                if key_resp_questionnaire.keys=='1': #then exist this routine
+                if key_resp_questionnaire.keys=='1': #then exit this routine
                     continueRoutine = False
 
                     # send the fixation stop trigger, adding by hxf 10/12/2021
-                    timestamp = local_clock()  # don't use t
+                    timestamp = time.time()  # don't use t
                     outlet.push_sample([markernames['fixation_stopped']], timestamp)
                     # ending by hxf 10/12/2021
 
@@ -364,7 +366,7 @@ for thisRecordingloop in recordingloop:
                     # print(responseTime)
 
                     # send the response trigger, adding by hxf 10/12/2021
-                    timestamp = local_clock()  # don't use t
+                    timestamp = time.time()  # don't use t
                     if (key_resp_questionnaire.keys == 'a' or key_resp_questionnaire.keys == 'A'):
                         outlet.push_sample([markernames['responseA_start']], timestamp)
                     elif (key_resp_questionnaire.keys == 'b' or key_resp_questionnaire.keys == 'B'):
@@ -389,7 +391,7 @@ for thisRecordingloop in recordingloop:
         # check for quit (the Esc key)
         if endExpNow or event.getKeys(keyList=["escape"]):
             # send the stopped trigger, adding by hxf 11/19/2021
-            timestamp = local_clock()  # don't use t, Obtain a local system time stamp in seconds.
+            timestamp = time.time()  # don't use t, Obtain a local system time stamp in seconds.
             outlet.push_sample([markernames['experiment_stopped']], timestamp)
             # ending by hxf 11/19/2021
             core.quit()
@@ -465,7 +467,7 @@ while continueRoutine and routineTimer.getTime() > 0:
     # check for quit (the Esc key)
     if endExpNow or event.getKeys(keyList=["escape"]):
         # send the stopped trigger, adding by hxf 11/19/2021
-        timestamp = local_clock()  # don't use t, Obtain a local system time stamp in seconds.
+        timestamp = time.time()  # don't use t, Obtain a local system time stamp in seconds.
         outlet.push_sample([markernames['experiment_stopped']], timestamp)
         # ending by hxf 11/19/2021
         core.quit()
@@ -481,7 +483,7 @@ for thisComponent in ThankYouComponents:
 
 
 # send the stopped trigger, adding by hxf 10/12/2021
-timestamp = local_clock()  # don't use t, Obtain a local system time stamp in seconds.
+timestamp = time.time()  # don't use t, Obtain a local system time stamp in seconds.
 outlet.push_sample([markernames['experiment_stopped']], timestamp)
 # ending by hxf 10/12/2021
 

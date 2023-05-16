@@ -7,7 +7,7 @@ import os
 import psutil
 import muselsl.winctrlc
 
-t_init = int(datetime.datetime(2023, 5, 11, 14, 43, 0).timestamp())  # Year, Month, Day, Hour, Minutes
+t_init = int(datetime.datetime(2023, 5, 16, 11, 22, 0).timestamp())  # Year, Month, Day, Hour, Minutes
 participant = '101'
 name = 'MuseS-7A18'
 cwd = os.getcwd()
@@ -37,7 +37,6 @@ command = ''.join(['start ', venv_path, ' ; .\\venv\\Scripts\\python.exe EEG_cou
 p = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, creationflags=subprocess.CREATE_NEW_PROCESS_GROUP)
 time.sleep(5)
 
-# stream_p = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, creationflags=subprocess.CREATE_NEW_PROCESS_GROUP)
 stream_p = muselsl.winctrlc.Popen(stream_command, cwd)
 time.sleep(15)
 
@@ -50,7 +49,7 @@ acc_p = muselsl.winctrlc.Popen(acc_command, cwd)
 gyro_command = ''.join([record_command, ' GYRO'])
 gyro_p = muselsl.winctrlc.Popen(gyro_command, cwd)
 
-[inlet, inlet_marker, chunk_length, ch, ch_names] = muselsl.start_record(t_init=t_init)
+[inlet, inlet_marker, marker_time_correction, chunk_length, ch, ch_names] = muselsl.start_record(t_init=t_init)
 
 res = []
 timestamps = []
@@ -72,10 +71,11 @@ while 1:
             res.append(data)
             timestamps.extend(timestamp)
             tr = time.time()
-        marker, timestamp = inlet_marker.pull_sample(timeout=0.0)
-        if timestamp:
-            markers.append([marker, timestamp])
-        if "999" in markers:
+        marker, marker_timestamp = inlet_marker.pull_sample(timeout=0.0)
+        if marker_timestamp:
+            markers.append([marker, marker_timestamp])
+            marker_timestamp = marker_timestamp + marker_time_correction
+        if marker == [999]:
             break
 
         # Save every 5s
@@ -109,9 +109,13 @@ while 1:
             ppg_p.send_ctrl_c()
             acc_p.send_ctrl_c()
             gyro_p.send_ctrl_c()
-            stream_p.send_ctrl_c()
-            time.sleep(10)
-            print(command)
+            while 1:
+                try:
+                    stream_p.send_ctrl_c()
+                    time.sleep(2)
+                except OSError as error:
+                    print(error)
+                    break
             stream_p = muselsl.winctrlc.Popen(stream_command, cwd)
             time.sleep(15)
             ppg_p = muselsl.winctrlc.Popen(ppg_command, cwd)
@@ -136,7 +140,15 @@ muselsl.save_ongoing(
 ppg_p.send_ctrl_c()
 acc_p.send_ctrl_c()
 gyro_p.send_ctrl_c()
-stream_p.send_ctrl_c()
+while 1:
+    try:
+        stream_p.send_ctrl_c()
+        time.sleep(2)
+    except OSError as error:
+        print(error)
+        break
+
+
 
 
 
