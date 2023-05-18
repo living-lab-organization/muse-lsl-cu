@@ -25,28 +25,42 @@ _Note: if you run into any issues, first check out out [Common Issues](#common-i
 
 Install this package
 
-	Download the zip of this folder
+1. Download the zip of this folder
 
-	Place on the Desktop of the testing computer
+2. Place on the Desktop of the testing computer
 
-	open Windows Command Prompt
+3. Open `muse-start.py` in PyCharm
 
-	cd into the package folder
+4. It will ask if you want to open in a project, click Yes
 
-	activate the virtual environment using `.\venv\Scripts\activate.bat`
+5. When asked the details, say you want a 
+	
+	- virtual environment in muse-lsl-cu-main\venv
+	
+	- to use Python 3.10 already installed on the computer
 
-	once activated, make sure to uninstall any muselsl with `pip uninstall muselsl`
+6. Wait for the virtual environment to install
 
-	then, install the package using `pip install -e .`
+7. open Windows Command Prompt
+
+8. cd into the package folder
+
+9. activate the virtual environment using `.\venv\Scripts\activate.bat`
+
+10. once activated, make sure to uninstall any muselsl with `pip uninstall muselsl`
+
+11. then, install the package using `pip install -e .`
 
 
 ### Running the pipeline
 
-	Once, you will have to update the subject number and Muse name (from EEGedu) in muse-start.py
+Once, you will have to update the subject number and Muse name (from EEGedu) in muse-start.py
 
-	From then on, you will only need to update the start time in muse-start.py for each session
+From then on, you will only need to update the start time in muse-start.py for each session
 
-	to run the pipeline, open muse-start.py in pycharm, then run `.\venv\Scripts\python.exe .\muse-start.py`
+to run the pipeline, open muse-start.py in pycharm, then run `.\venv\Scripts\python.exe .\muse-start.py`
+	
+When done with debugging, go into EEG psychopy script and change the window to take up fullscreen
 
 ### Setting Up a Stream
 
