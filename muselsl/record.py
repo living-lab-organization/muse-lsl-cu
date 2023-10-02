@@ -141,13 +141,6 @@ def _save(
     res = np.concatenate(res, axis=0)
     timestamps = np.array(timestamps) + time_correction
 
-    if dejitter:
-        y = timestamps
-        X = np.atleast_2d(np.arange(0, len(y))).T
-        lr = LinearRegression()
-        lr.fit(X, y)
-        timestamps = lr.predict(X)
-
     res = np.c_[timestamps, res]
     data = pd.DataFrame(data=res, columns=["timestamps"] + ch_names)
 
@@ -322,13 +315,6 @@ def save_ongoing(
                                  strftime('%Y-%m-%d-%H.%M.%S', gmtime())))
     res = np.concatenate(res, axis=0)
     timestamps = np.array(timestamps) + time_correction
-
-    if dejitter:
-        y = timestamps
-        X = np.atleast_2d(np.arange(0, len(y))).T
-        lr = LinearRegression()
-        lr.fit(X, y)
-        timestamps = lr.predict(X)
 
     res = np.c_[timestamps, res]
     data = pd.DataFrame(data=res, columns=["timestamps"] + ch_names)
