@@ -27,7 +27,7 @@ except OSError as error:
 data_path_quotes = '\"' + data_path + '\"'
 stream_command = ''.join(['muselsl stream -n ', name, ' -p -c -g'])
 record_command = ''.join(['muselsl record -s ', str(t_init),
-                          ' -p ', participant, ' -t'])
+                          ' -p ', participant, ' -d ', data_path, ' -t'])
 filename = os.path.join(data_path, "%s_%s_recording_%s.csv" %
                             (''.join(['sub-', participant]),
                              'EEG',

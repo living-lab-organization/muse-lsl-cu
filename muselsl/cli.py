@@ -1,6 +1,7 @@
 #!/usr/bin/python
 import sys
 import argparse
+import os
 
 
 class CLI:
@@ -131,10 +132,16 @@ class CLI:
             help="Data type to record from. Either EEG, PPG, ACC, or GYRO.")
         parser.add_argument(
             "-p",
-            "--subj",
+            "--participant",
             type=str,
             default="xxx",
             help="participant number")
+        parser.add_argument(
+            "-d",
+            "--directory",
+            type=str,
+            default=os.getcwd(),
+            help="data directory")
 
         args = parser.parse_args(sys.argv[2:])
         from . import record

@@ -35,6 +35,7 @@ def main():
                 -p --participant   participant number
                 -dj --dejitter  Whether to apply dejitter correction to timestamps.
                 -t --type       Data type to record from. Either EEG, PPG, ACC, or GYRO 
+                -d --directory  Directory to save the recordings.
 
     record_direct      Record data directly from Muse headset (no LSL).
                 -a --address    Device MAC address.

@@ -20,6 +20,7 @@ def record(
     data_source="EEG",
     continuous: bool = True,
     subj="xxx",
+    directory=os.getcwd(),
 ) -> None:
     chunk_length = LSL_EEG_CHUNK
     if data_source == "PPG":
@@ -29,7 +30,7 @@ def record(
     if data_source == "GYRO":
         chunk_length = LSL_GYRO_CHUNK
 
-    filename = os.path.join(os.getcwd(), "%s_%s_recording_%s.csv" %
+    filename = os.path.join(directory, "%s_%s_recording_%s.csv" %
                             (''.join(['sub-', subj]),
                              data_source,
                              strftime('%Y-%m-%d-%H.%M.%S', gmtime())))
