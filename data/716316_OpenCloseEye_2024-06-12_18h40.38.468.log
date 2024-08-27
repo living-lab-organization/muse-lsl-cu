@@ -1,0 +1,101 @@
+4.5538 	WARNING 	User requested fullscreen with size [1024  768], but screen is actually [3840, 2160]. Using actual size
+5.0606 	EXP 	Created window1 = Window(allowGUI=True, allowStencil=False, autoLog=True, backendConf=UNKNOWN, backgroundFit=<method-wrapper '__getattribute__' of attributeSetter object at 0x000002508A919930>, backgroundImage=<method-wrapper '__getattribute__' of attributeSetter object at 0x000002508A919810>, bitsMode=UNKNOWN, blendMode='avg', bpc=(8, 8, 8), color=array([0, 0, 0]), colorSpace='rgb', depthBits=8, fullscr=<method-wrapper '__getattribute__' of attributeSetter object at 0x000002508A91A350>, gamma=None, gammaErrorPolicy='raise', lms=UNKNOWN, monitor=<psychopy.monitors.calibTools.Monitor object at 0x0000025094EECA00>, multiSample=False, name='window1', numSamples=2, pos=(0, 0), screen=0, size=array([3840, 2160]), stencilBits=0, stereo=False, title='PsychoPy', units='height', useFBO=True, useRetina=False, viewOri=0.0, viewPos=None, viewScale=None, waitBlanking=True, winType='pyglet')
+5.0607 	EXP 	window1: mouseVisible = True
+5.0607 	EXP 	window1: backgroundImage = ''
+5.0607 	EXP 	window1: backgroundFit = 'none'
+5.0617 	EXP 	window1: Attempting to measure frame rate of screen (0) ...
+5.0617 	EXP 	window1: recordFrameIntervals = False
+5.2268 	EXP 	window1: recordFrameIntervals = True
+5.4105 	EXP 	Screen (0) actual frame rate measured at 59.90Hz
+5.4105 	EXP 	window1: recordFrameIntervals = False
+5.4106 	EXP 	window1: mouseVisible = False
+7.5811 	EXP 	OpenCloseEye: status = STARTED
+7.5814 	EXP 	window1: mouseVisible = True
+7.6112 	EXP 	Created text = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0.0, draggable=False, flipHoriz=False, flipVert=False, font='Open Sans', fontFiles=[], height=0.05, italic=False, languageStyle='LTR', name='text', opacity=1.0, ori=0.0, pos=array([0., 0.]), rgb=UNKNOWN, text='Welcome to the Test', units='height', win=Window(...), wrapWidth=1)
+7.6113 	EXP 	window1: mouseVisible = True
+7.6221 	EXP 	Created text_4 = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0.0, draggable=False, flipHoriz=False, flipVert=False, font='Open Sans', fontFiles=[], height=0.05, italic=False, languageStyle='LTR', name='text_4', opacity=1.0, ori=0.0, pos=array([0., 0.]), rgb=UNKNOWN, text=str(...), units='height', win=Window(...), wrapWidth=1)
+7.6221 	EXP 	window1: mouseVisible = True
+7.6256 	EXP 	Created text_2 = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0.0, draggable=False, flipHoriz=False, flipVert=False, font='Open Sans', fontFiles=[], height=0.05, italic=False, languageStyle='LTR', name='text_2', opacity=1.0, ori=0.0, pos=array([0., 0.]), rgb=UNKNOWN, text='Please keep your eyes open', units='height', win=Window(...), wrapWidth=1)
+7.6256 	EXP 	window1: mouseVisible = True
+7.6331 	EXP 	Created text_3 = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0.0, draggable=False, flipHoriz=False, flipVert=False, font='Open Sans', fontFiles=[], height=0.05, italic=False, languageStyle='LTR', name='text_3', opacity=1.0, ori=0.0, pos=array([0., 0.]), rgb=UNKNOWN, text=str(...), units='height', win=Window(...), wrapWidth=1)
+7.6332 	EXP 	window1: mouseVisible = True
+7.6356 	EXP 	Created text_5 = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0.0, draggable=False, flipHoriz=False, flipVert=False, font='Open Sans', fontFiles=[], height=0.05, italic=False, languageStyle='LTR', name='text_5', opacity=1.0, ori=0.0, pos=array([0., 0.]), rgb=UNKNOWN, text='Thanks!', units='height', win=Window(...), wrapWidth=1)
+0.0084 	EXP 	text: autoDraw = True
+4.9915 	EXP 	Created sequence: sequential, trialTypes=1, nReps=10, seed=None
+4.9916 	EXP 	New trial (rep=0, index=0): None
+5.0081 	EXP 	text: autoDraw = False
+5.0081 	EXP 	text_4: autoDraw = True
+8.4740 	EXP 	text_4: autoDraw = False
+8.4740 	EXP 	text_2: autoDraw = True
+13.4736 	EXP 	text_2: autoDraw = False
+13.4736 	EXP 	text_2: autoDraw = False
+13.4736 	EXP 	text_3: autoDraw = True
+22.2848 	EXP 	New trial (rep=1, index=0): None
+22.2954 	EXP 	text_3: autoDraw = False
+22.2954 	EXP 	text_4: autoDraw = True
+25.7731 	EXP 	text_4: autoDraw = False
+25.7731 	EXP 	text_2: autoDraw = True
+30.7730 	EXP 	text_2: autoDraw = False
+30.7730 	EXP 	text_2: autoDraw = False
+30.7730 	EXP 	text_3: autoDraw = True
+40.2046 	EXP 	New trial (rep=2, index=0): None
+40.2135 	EXP 	text_3: autoDraw = False
+40.2135 	EXP 	text_4: autoDraw = True
+42.7553 	EXP 	text_4: autoDraw = False
+42.7553 	EXP 	text_2: autoDraw = True
+47.7385 	EXP 	text_2: autoDraw = False
+47.7385 	EXP 	text_3: autoDraw = True
+56.4701 	EXP 	New trial (rep=3, index=0): None
+56.4792 	EXP 	text_3: autoDraw = False
+56.4792 	EXP 	text_4: autoDraw = True
+57.1376 	EXP 	text_4: autoDraw = False
+57.1376 	EXP 	text_2: autoDraw = True
+62.1214 	EXP 	text_2: autoDraw = False
+62.1214 	EXP 	text_3: autoDraw = True
+72.7427 	EXP 	New trial (rep=4, index=0): None
+72.7505 	EXP 	text_3: autoDraw = False
+72.7505 	EXP 	text_4: autoDraw = True
+74.1699 	EXP 	text_4: autoDraw = False
+74.1699 	EXP 	text_2: autoDraw = True
+79.1537 	EXP 	text_2: autoDraw = False
+79.1537 	EXP 	text_3: autoDraw = True
+88.5037 	EXP 	New trial (rep=5, index=0): None
+88.5112 	EXP 	text_3: autoDraw = False
+88.5112 	EXP 	text_4: autoDraw = True
+95.4357 	EXP 	text_4: autoDraw = False
+95.4357 	EXP 	text_2: autoDraw = True
+100.4356 	EXP 	text_2: autoDraw = False
+100.4356 	EXP 	text_3: autoDraw = True
+109.8512 	EXP 	New trial (rep=6, index=0): None
+109.8593 	EXP 	text_3: autoDraw = False
+109.8593 	EXP 	text_4: autoDraw = True
+110.9012 	EXP 	text_4: autoDraw = False
+110.9012 	EXP 	text_2: autoDraw = True
+115.8846 	EXP 	text_2: autoDraw = False
+115.8846 	EXP 	text_3: autoDraw = True
+124.3111 	EXP 	New trial (rep=7, index=0): None
+124.3220 	EXP 	text_3: autoDraw = False
+124.3220 	EXP 	text_4: autoDraw = True
+125.4170 	EXP 	text_4: autoDraw = False
+125.4170 	EXP 	text_2: autoDraw = True
+130.4007 	EXP 	text_2: autoDraw = False
+130.4007 	EXP 	text_3: autoDraw = True
+140.9118 	EXP 	New trial (rep=8, index=0): None
+140.9221 	EXP 	text_3: autoDraw = False
+140.9221 	EXP 	text_4: autoDraw = True
+142.2161 	EXP 	text_4: autoDraw = False
+142.2161 	EXP 	text_2: autoDraw = True
+147.1995 	EXP 	text_2: autoDraw = False
+147.1995 	EXP 	text_3: autoDraw = True
+154.8021 	EXP 	New trial (rep=9, index=0): None
+154.8099 	EXP 	text_3: autoDraw = False
+154.8099 	EXP 	text_4: autoDraw = True
+155.2152 	EXP 	text_4: autoDraw = False
+155.2152 	EXP 	text_2: autoDraw = True
+160.1991 	EXP 	text_2: autoDraw = False
+160.1991 	EXP 	text_3: autoDraw = True
+167.6553 	EXP 	text_3: autoDraw = False
+167.6553 	EXP 	text_5: autoDraw = True
+172.6479 	EXP 	text_5: autoDraw = False
+172.6479 	EXP 	OpenCloseEye: status = STOPPED
+172.6742 	EXP 	window1: mouseVisible = True

@@ -1,0 +1,14 @@
+bitstring~=4.0.1
+pygatt~=4.0.5
+numpy
+pandas~=1.5.3
+pylsl~=1.16.1
+scikit-learn~=1.2.2
+bleak~=0.19.5
+matplotlib~=3.7.1
+seaborn~=0.12.2
+scipy~=1.10.1
+setuptools~=57.0.0
+psutil~=5.9.5
+psychopy
+psychopy-sounddevice
