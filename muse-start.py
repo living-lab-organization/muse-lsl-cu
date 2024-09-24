@@ -33,7 +33,7 @@ filename = os.path.join(data_path, "%s_%s_recording.csv" %
                             (''.join(['sub-', participant]),
                              'EEG'))
 
-command = ''.join(['start ', venv_path, ' ; .\\venv\\Scripts\\python.exe Attend_ver_005.py -p ', participant, ' -s ', str(t_init)])
+command = ''.join(['start ', venv_path, ' ; .\\venv\\Scripts\\python.exe Attend_ver_005_CompleteVideo.py -p ', participant, ' -s ', str(t_init)])
 p = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, creationflags=subprocess.CREATE_NEW_PROCESS_GROUP)
 time.sleep(5)
 

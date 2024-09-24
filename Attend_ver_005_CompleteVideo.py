@@ -756,34 +756,6 @@ def run(expInfo, thisExp, win, inputs, globalClock=None, thisSession=None):
     time.sleep(1)
     # --- Prepare to start Routine "Resting_State" ---
     continueRoutine = True
-    event_stop = threading.Event()
-    Captured_directory = f"C:\\Users\\TheLivingLab_Attend\\Desktop\\Data\\sub-{expInfo['participant']}\\Video_Captured"
-    # Create the directory if it does not exist
-    if not os.path.exists(Captured_directory):
-        os.makedirs(Captured_directory)
-    frame_queues = [queue.Queue(maxsize=30), queue.Queue(maxsize=30)]
-
-    if not os.path.exists(Captured_directory):
-        os.makedirs(Captured_directory)
-
-    camera_threads = []
-    RS0_filenames = [os.path.join(Captured_directory, f"Sub-{expInfo['participant']}_RestingState0_CAM{i}.avi")
-                     for i in range(2)]
-    for i in range(2):
-        tt = threading.Thread(target=record_camera, args=(i, RS0_filenames[i], frame_queues[i], event_stop))
-        camera_threads.append(tt)
-        tt.start()
-
-    # Start writer threads
-    writer_threads = []
-    for i in range(2):
-        tt = threading.Thread(target=write_video, args=(RS0_filenames[i], frame_queues[i]))
-        writer_threads.append(tt)
-        tt.start()
-        time.sleep(0.5)
-        thisExp.addData(f'RestingState0_CAM{i} started', datetime.now().strftime('%H:%M:%S:%f'))
-        time.sleep(0.5)
-    # update component parameters for each repeat
     markername = 'pre_rest_started'
     absolute_timestamp = datetime.now().strftime('%H:%M:%S:%f')
     thisExp.addData(markername, absolute_timestamp)
@@ -908,21 +880,6 @@ def run(expInfo, thisExp, win, inputs, globalClock=None, thisSession=None):
     absolute_timestamp = datetime.now().strftime('%H:%M:%S:%f')
     thisExp.addData(markername, absolute_timestamp)
     outlet.push_sample([markernames[markername]], time.time())
-    event_stop.set()
-    for tt in camera_threads:
-        tt.join()
-
-    # Wait for all frames to be processed
-    for tt in writer_threads:
-        tt.join()
-    absolute_timestamp = datetime.now().strftime('%H:%M:%S:%f')
-    thisExp.addData(f'Recording Saved', absolute_timestamp)
-    for q in frame_queues:
-        while not q.empty():
-            try:
-                q.get_nowait()
-            except queue.Empty:
-                break
     # check responses
     if skip_button.keys in ['', [], None]:  # No response was made
         skip_button.keys = None
@@ -1119,21 +1076,6 @@ def run(expInfo, thisExp, win, inputs, globalClock=None, thisSession=None):
                     globals()[paramName] = thisSection_trial[paramName]
             
             # --- Prepare to start Routine "video_sections_1" ---
-            event_stop = threading.Event()
-            timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-            Captured_directory = f"C:\\Users\\TheLivingLab_Attend\\Desktop\\Data\\sub-{expInfo['participant']}\\Video_Captured"
-            # Create the directory if it does not exist
-            if not os.path.exists(Captured_directory):
-                os.makedirs(Captured_directory)
-            frame_queues = [queue.Queue(maxsize=30), queue.Queue(maxsize=30)]
-
-            if not os.path.exists(Captured_directory):
-                os.makedirs(Captured_directory)
-
-            # Generate file names and store them in the new directory
-            filenames = [os.path.join(Captured_directory, f"Sub-{expInfo['participant']}_QP{qp+1}_CAM{i}.avi")
-                         for i in range(2)]
-
             continueRoutine = True
             # update component parameters for each repeat
             thisExp.addData('video_sections_1.started', globalClock.getTime())
@@ -1180,22 +1122,6 @@ def run(expInfo, thisExp, win, inputs, globalClock=None, thisSession=None):
                     # update status
                     lecture_sections.status = STARTED
                     lecture_sections.setAutoDraw(True)
-                    camera_threads = []
-                    for i in range(2):
-                        tt = threading.Thread(target=record_camera, args=(i, filenames[i], frame_queues[i], event_stop))
-                        camera_threads.append(tt)
-                        tt.start()
-
-                    # Start writer threads
-                    writer_threads = []
-                    for i in range(2):
-                        tt = threading.Thread(target=write_video, args=(filenames[i], frame_queues[i]))
-                        writer_threads.append(tt)
-                        tt.start()
-                        time.sleep(0.5)
-                        thisExp.addData(f'Video_Capturing{i} started', datetime.now().strftime('%H:%M:%S:%f'))
-                        time.sleep(0.5)# CallOnFlip
-
                     marker_name = 'VideoStim{}_started'.format(qp+1)
                     outlet.push_sample([markernames[marker_name]], time.time())
                     absolute_timestamp = datetime.now().strftime('%H:%M:%S:%f')
@@ -1278,21 +1204,6 @@ def run(expInfo, thisExp, win, inputs, globalClock=None, thisSession=None):
             marker_name = 'VideoStim{}_stopped'.format(qp+1)
             outlet.push_sample([markernames[marker_name]], time.time())
             thisExp.addData(marker_name, absolute_timestamp)
-            event_stop.set()
-            for tt in camera_threads:
-                tt.join()
-
-            # Wait for all frames to be processed
-            for tt in writer_threads:
-                tt.join()
-            absolute_timestamp = datetime.now().strftime('%H:%M:%S:%f')
-            thisExp.addData(f'Recording Saved', absolute_timestamp)
-            for q in frame_queues:
-                while not q.empty():
-                    try:
-                        q.get_nowait()
-                    except queue.Empty:
-                        break
             # check responses
             if skip_video.keys in ['', [], None]:  # No response was made
                 skip_video.keys = None
@@ -2262,33 +2173,6 @@ def run(expInfo, thisExp, win, inputs, globalClock=None, thisSession=None):
     
     # --- Prepare to start Routine "Resting_State" ---
     continueRoutine = True
-    event_stop = threading.Event()
-    Captured_directory = f"C:\\Users\\TheLivingLab_Attend\\Desktop\\Data\\sub-{expInfo['participant']}\\Video_Captured"
-    # Create the directory if it does not exist
-    if not os.path.exists(Captured_directory):
-        os.makedirs(Captured_directory)
-    frame_queues = [queue.Queue(maxsize=30), queue.Queue(maxsize=30)]
-
-    if not os.path.exists(Captured_directory):
-        os.makedirs(Captured_directory)
-
-    camera_threads = []
-    RS1_filenames = [os.path.join(Captured_directory, f"Sub-{expInfo['participant']}_RestingState1_CAM{i}.avi")
-                         for i in range(2)]
-    for i in range(2):
-        tt = threading.Thread(target=record_camera, args=(i, RS1_filenames[i], frame_queues[i], event_stop))
-        camera_threads.append(tt)
-        tt.start()
-
-    # Start writer threads
-    writer_threads = []
-    for i in range(2):
-        tt = threading.Thread(target=write_video, args=(RS1_filenames[i], frame_queues[i]))
-        writer_threads.append(tt)
-        tt.start()
-        time.sleep(0.5)
-        thisExp.addData(f'RestingState1_CAM{i} started', datetime.now().strftime('%H:%M:%S:%f'))
-        time.sleep(0.5)
     # update component parameters for each repeat
     markername = 'post_rest_started'
     absolute_timestamp = datetime.now().strftime('%H:%M:%S:%f')
@@ -2414,21 +2298,6 @@ def run(expInfo, thisExp, win, inputs, globalClock=None, thisSession=None):
     absolute_timestamp = datetime.now().strftime('%H:%M:%S:%f')
     thisExp.addData(markername, absolute_timestamp)
     outlet.push_sample([markernames[markername]], time.time())
-    event_stop.set()
-    for tt in camera_threads:
-        tt.join()
-
-    # Wait for all frames to be processed
-    for tt in writer_threads:
-        tt.join()
-    absolute_timestamp = datetime.now().strftime('%H:%M:%S:%f')
-    thisExp.addData(f'Recording Saved', absolute_timestamp)
-    for q in frame_queues:
-        while not q.empty():
-            try:
-                q.get_nowait()
-            except queue.Empty:
-                break
     # check responses
     if skip_button.keys in ['', [], None]:  # No response was made
         skip_button.keys = None
@@ -2793,12 +2662,52 @@ if __name__ == '__main__':
     logFile = setupLogging(filename=thisExp.dataFileName)
     win = setupWindow(expInfo=expInfo)
     inputs = setupInputs(expInfo=expInfo, thisExp=thisExp, win=win)
+
+    event_stop = threading.Event()
+    Captured_directory = f"C:\\Users\\TheLivingLab_Attend\\Desktop\\Data\\sub-{expInfo['participant']}\\Video_Captured"
+    # Create the directory if it does not exist
+    if not os.path.exists(Captured_directory):
+        os.makedirs(Captured_directory)
+    frame_queues = [queue.Queue(maxsize=60), queue.Queue(maxsize=60)]
+
+    if not os.path.exists(Captured_directory):
+        os.makedirs(Captured_directory)
+    absolute_timestamp = datetime.now().strftime('%H:%M:%S:%f')
+    thisExp.addData(f'Recording Started', absolute_timestamp)
+    camera_threads = []
+    record_filenames = [os.path.join(Captured_directory, f"Sub-{expInfo['participant']}_CAM{i}.avi")
+                     for i in range(2)]
+    for i in range(2):
+        tt = threading.Thread(target=record_camera, args=(i, record_filenames[i], frame_queues[i], event_stop))
+        camera_threads.append(tt)
+        tt.start()
+    # Start writer threads
+    writer_threads = []
+    for i in range(2):
+        tt = threading.Thread(target=write_video, args=(record_filenames[i], frame_queues[i]))
+        writer_threads.append(tt)
+        tt.start()
+
     run(
         expInfo=expInfo, 
         thisExp=thisExp, 
         win=win, 
         inputs=inputs
     )
+    event_stop.set()
+    for tt in camera_threads:
+        tt.join()
+    # Wait for all frames to be processed
+    for tt in writer_threads:
+        tt.join()
+    absolute_timestamp = datetime.now().strftime('%H:%M:%S:%f')
+    thisExp.addData(f'Recording Saved', absolute_timestamp)
+    for q in frame_queues:
+        while not q.empty():
+            try:
+                q.get_nowait()
+            except queue.Empty:
+                break
     outlet.push_sample([markernames['experiment_stopped']], time.time())
     saveData(thisExp=thisExp)
     quit(thisExp=thisExp, win=win, inputs=inputs)
