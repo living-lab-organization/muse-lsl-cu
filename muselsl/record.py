@@ -10,9 +10,35 @@ from .stream import find_muse
 from . import backends
 from .muse import Muse
 from .constants import LSL_SCAN_TIMEOUT, LSL_EEG_CHUNK, LSL_PPG_CHUNK, LSL_ACC_CHUNK, LSL_GYRO_CHUNK
-
+from matplotlib import pyplot as plt
+import threading
 # Records a fixed duration of EEG data from an LSL stream into a CSV file
 
+def placeholder_model(data_chunk):
+    # Placeholder: Adjust this function to use your real model
+    return sum([sum(chunk) for chunk in data_chunk]) % 2  # Returns 0 or 1 as an example
+
+# Buffer to hold EEG data for 2-second chunks
+buffer = []
+
+def process_eeg_data():
+    global buffer
+    while True:
+        if len(buffer) >= 2 * 256:
+            data_chunk = buffer[:2 * 256]  # Extract 2 seconds of data
+            prediction = placeholder_model(data_chunk)  # Run the ML model
+            update_visualization(prediction)  # Update the visualization
+            buffer = buffer[2 * 256:]  # Remove processed data
+        time.sleep(1)
+
+# Function to update the visualization
+def update_visualization(prediction):
+    plt.clf()  # Clear the previous figure
+    plt.bar(['Prediction'], [prediction])  # Simple bar chart showing prediction
+    plt.pause(0.1)
+
+
+    
 
 def record(
     t_init=time(),

@@ -2662,52 +2662,11 @@ if __name__ == '__main__':
     logFile = setupLogging(filename=thisExp.dataFileName)
     win = setupWindow(expInfo=expInfo)
     inputs = setupInputs(expInfo=expInfo, thisExp=thisExp, win=win)
-
-    event_stop = threading.Event()
-    Captured_directory = f"C:\\Users\\TheLivingLab_Attend\\Desktop\\Data\\sub-{expInfo['participant']}\\Video_Captured"
-    # Create the directory if it does not exist
-    if not os.path.exists(Captured_directory):
-        os.makedirs(Captured_directory)
-    frame_queues = [queue.Queue(maxsize=60), queue.Queue(maxsize=60)]
-
-    if not os.path.exists(Captured_directory):
-        os.makedirs(Captured_directory)
-    absolute_timestamp = datetime.now().strftime('%H:%M:%S:%f')
-    thisExp.addData(f'Recording Started', absolute_timestamp)
-    camera_threads = []
-    record_filenames = [os.path.join(Captured_directory, f"Sub-{expInfo['participant']}_CAM{i}.avi")
-                     for i in range(2)]
-    for i in range(2):
-        tt = threading.Thread(target=record_camera, args=(i, record_filenames[i], frame_queues[i], event_stop))
-        camera_threads.append(tt)
-        tt.start()
-    # Start writer threads
-    writer_threads = []
-    for i in range(2):
-        tt = threading.Thread(target=write_video, args=(record_filenames[i], frame_queues[i]))
-        writer_threads.append(tt)
-        tt.start()
-
     run(
         expInfo=expInfo, 
         thisExp=thisExp, 
         win=win, 
         inputs=inputs
     )
-    event_stop.set()
-    for tt in camera_threads:
-        tt.join()
-    # Wait for all frames to be processed
-    for tt in writer_threads:
-        tt.join()
-    absolute_timestamp = datetime.now().strftime('%H:%M:%S:%f')
-    thisExp.addData(f'Recording Saved', absolute_timestamp)
-    for q in frame_queues:
-        while not q.empty():
-            try:
-                q.get_nowait()
-            except queue.Empty:
-                break
-    outlet.push_sample([markernames['experiment_stopped']], time.time())
     saveData(thisExp=thisExp)
     quit(thisExp=thisExp, win=win, inputs=inputs)
